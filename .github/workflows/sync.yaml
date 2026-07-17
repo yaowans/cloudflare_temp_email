@@ -12,7 +12,15 @@ jobs:
     if: ${{ github.event.repository.fork }}
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup GitHub CLI
+        uses: actions/setup-node@v4
+        with:
+          gh: latest
+
       - name: Sync upstream changes
         run: gh repo sync ${{ github.repository }} --source dreamhunter2333/cloudflare_temp_email --branch main
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
